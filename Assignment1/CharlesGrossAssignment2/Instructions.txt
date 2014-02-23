@@ -1,0 +1,21 @@
+﻿Create two page website
+No master pages
+Site wide CSS
+
+Page 1:
+5 values (1 int, 2 real(double))
+Dropdown List: 3 options (sum, average, product) can be hard coded
+2 Buttons: Calculate, Clear
+Empty and Range validation
+
+Page 2:
+Display: original numbers, highest value of given numbers (handle ties), lowest value of given numbers (handle ties), selected dropdown conversion
+Button to return to first page
+
+Extra credit:
+On page 2: reorder list as follow:
+			order as given on page 1
+			smallest to largest
+			largest to small
+
+Submit zipped through Blackboard
