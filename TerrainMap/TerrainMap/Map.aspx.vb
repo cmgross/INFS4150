@@ -1,4 +1,5 @@
 ﻿Imports System.Data.OleDb
+Imports System.Drawing
 
 Public Class Map
     Inherits System.Web.UI.Page
@@ -16,10 +17,10 @@ Public Class Map
     Private Sub UpdateMap()
         Dim terrain = Session("terrain")
         If terrain Is Nothing Then Response.Redirect("Default.aspx") 'default wasn't visited first
-        Dim terrainImages = Session("terrainImages")
+        Dim terrainColor = Session("terrainColor")
         Dim example = Session("map00") 'this is the ID of what the terrain should be, so do
         Dim exampleTerrain = terrain(example - 1)
-        Dim exampleTerrainFile = terrainImages(example - 1)
+        Dim exampleTerrainColor = terrainColor(example - 1)
 
         Dim conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("GameDB").ConnectionString)
         Dim rows, cells, j, i, rvalue, cvalue As Integer
@@ -47,11 +48,11 @@ Public Class Map
             End If
             read.Close()
             Dim sql As String
-            sql = "Update maps set visited = 1 where row =" + Session("rows").ToString() + " and col = " + Session("rows").ToString() + ";"
+            sql = "Update maps set visited = 1 where row =" + Session("rows").ToString() + " and col = " + Session("cols").ToString() + ";"
             cmd = New OleDbCommand(sql, conn) 'Set visited for this location, rvalue and cvalue are current player location
             cmd.Connection = conn
             cmd.ExecuteNonQuery()
-            sql = "Update userchar set rloc = " + Session("rows").ToString() + " , cloc =" + Session("rows").ToString() + " where ID = 1;"
+            sql = "Update userchar set rloc = " + Session("rows").ToString() + " , cloc =" + Session("cols").ToString() + " where ID = 1;"
             cmd = New OleDbCommand(sql, conn) 'Then saved the player's location for the character. (auto-save rather than button)
             cmd.Connection = conn
             cmd.ExecuteNonQuery()
@@ -68,21 +69,22 @@ Public Class Map
                 Dim c As New TableCell()
                 Dim h As New HyperLink()
                 If (j < 0 Or i < 0 Or j > 9 Or i > 9) Then 'beyond the map, draw as black/wall
-                    c.BackColor = Drawing.Color.Black
-                    c.ForeColor = Drawing.Color.Black
-                    c.BorderColor = Drawing.Color.Black
+                    c.BackColor = Color.Black
+                    c.ForeColor = Color.Black
+                    c.BorderColor = Color.Black
                     c.Text = "++++++++"
                 ElseIf (j = rvalue And i = cvalue And (_map(j, i) <> 999)) Then 'player is here
-                    c.BackColor = Drawing.Color.Yellow
+                    c.BackColor = Color.Yellow
                     ''c.Text = (terrain(Session("map" & j & i)))
                     c.Text = (terrain(_bigmap(j, i, 0)))
                     lblInfo.Text = (terrain(_bigmap(j, i, 0)))
                 ElseIf ((_map(j, i) = 999)) Then 'special item
-                    c.BackColor = Drawing.Color.YellowGreen
+                    c.BackColor = Color.Red
                     c.Text = "Stairs"
                     '_bigmap(j, i, 1) = 1
                 Else 'regular terrain
                     c.Text = (terrain(Session("map" & j & i)))
+                    c.BackColor = Color.FromName(terrainColor(Session("map" & j & i)))
                 End If
                 r.Cells.Add(c)
             Next
@@ -99,16 +101,19 @@ Public Class Map
                 Dim c As New TableCell()
                 Dim h As New HyperLink()
                 If (j = rvalue And i = cvalue) Then 'player is here
-                    c.BackColor = Drawing.Color.Yellow
+                    c.BackColor = Color.Yellow
                     'h.Text = _terrain(_bigmap(j, i, 0))
                     h.Text = "You"
+                    h.ForeColor = Color.Black
                 ElseIf (_bigmap(j, i, 1) = 1) Then 'player is not here, but has visited
                     h.Text = terrain(_bigmap(j, i, 0))
+                    c.BackColor = Color.FromName(terrainColor(Session("map" & j & i)))
+                    h.ForeColor = Color.Black
                 Else 'player is not here and has not been here before
                     h.Text = "??????"
-                    h.ForeColor = Drawing.Color.DimGray
-                    c.BackColor = Drawing.Color.DimGray
-                    c.BorderColor = Drawing.Color.DimGray
+                    h.ForeColor = Color.DimGray
+                    c.BackColor = Color.DimGray
+                    c.BorderColor = Color.DimGray
                 End If
                 c.Controls.Add(h)
                 r.Cells.Add(c)

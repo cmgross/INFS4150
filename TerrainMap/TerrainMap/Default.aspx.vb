@@ -12,7 +12,7 @@ Public Class _Default
     Protected Sub btnNewGame_Click(sender As Object, e As EventArgs) Handles btnNewGame.Click
         Dim terrainRecords As Integer
         Dim terrain(0) As String
-        Dim terrainImages(0) As String
+        Dim terrainColor(0) As String
         Using conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("GameDB").ConnectionString)
             conn.Open()
             'populate terrain array and put into session
@@ -23,7 +23,7 @@ Public Class _Default
             End While
             reader.Close()
             ReDim terrain(terrainRecords - 1)
-            ReDim terrainImages(terrainRecords - 1)
+            ReDim terrainColor(terrainRecords - 1)
 
             cmd = New OleDbCommand("SELECT * from Terrain;", conn)
             reader = cmd.ExecuteReader()
@@ -31,13 +31,13 @@ Public Class _Default
                 For i As Integer = 0 To terrainRecords - 1
                     reader.Read()
                     terrain(i) = reader.Item("Display")
-                    terrainImages(i) = reader.Item("icon")
+                    terrainColor(i) = reader.Item("TileColor")
                 Next
             End If
             reader.Close()
 
             Session("terrain") = terrain
-            Session("terrainImages") = terrainImages
+            Session("terrainColor") = terrainColor
 
             'populate terrain map from database
             cmd = New OleDbCommand("SELECT * from maps;", conn)
