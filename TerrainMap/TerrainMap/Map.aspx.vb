@@ -5,14 +5,17 @@ Public Class Map
     'declare global variables
     Dim _map(9, 9) As Integer
     Dim _bigmap(9, 9, 2) As Integer
-    
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        'TODO:
-        'Debug why movement arrows don't seem to work
         'Redo database for Terrain to be fewer terrain types and have a color instead of an image
         'Utilize terrain background colors for the tiles http://www.hiddentriforce.com/wp-content/uploads/2011/09/legend-of-zelda-map.png
         SetButtonArrows()
+        If Not IsPostBack Then UpdateMap()
+    End Sub
+
+    Private Sub UpdateMap()
         Dim terrain = Session("terrain")
+        If terrain Is Nothing Then Response.Redirect("Default.aspx") 'default wasn't visited first
         Dim terrainImages = Session("terrainImages")
         Dim example = Session("map00") 'this is the ID of what the terrain should be, so do
         Dim exampleTerrain = terrain(example - 1)
@@ -22,8 +25,6 @@ Public Class Map
         Dim rows, cells, j, i, rvalue, cvalue As Integer
 
         'populate/update big map with terrain types and visited, needs to happen every page load as player moves
-        'Set visited for this location, rvalue and cvalue are current player location
-        'Then saved the player's location for the character. (auto-save rather than button)
         Using conn
             Dim cmd As OleDbCommand = New OleDbCommand("SELECT * from maps;", conn)
             conn.Open()
@@ -32,11 +33,12 @@ Public Class Map
                 For j = 0 To 9
                     For i = 0 To 9
                         read.Read()
-                        _bigmap(j, i, 0) = read.Item("Terrain")
+                        '_bigmap(j, i, 0) = read.Item("Terrain")
+                        _bigmap(j, i, 0) = (Session("map" & j & i))
                         _bigmap(j, i, 1) = read.Item("visited")
                     Next
                 Next
-            Else
+            Else 'no database information from terrain
                 For j = 0 To 9
                     For i = 0 To 9
                         _bigmap(j, i, 0) = CInt(Math.Ceiling(Rnd() * 10)) - 1
@@ -46,11 +48,11 @@ Public Class Map
             read.Close()
             Dim sql As String
             sql = "Update maps set visited = 1 where row =" + Session("rows").ToString() + " and col = " + Session("rows").ToString() + ";"
-            cmd = New OleDbCommand(sql, conn)
+            cmd = New OleDbCommand(sql, conn) 'Set visited for this location, rvalue and cvalue are current player location
             cmd.Connection = conn
             cmd.ExecuteNonQuery()
             sql = "Update userchar set rloc = " + Session("rows").ToString() + " , cloc =" + Session("rows").ToString() + " where ID = 1;"
-            cmd = New OleDbCommand(sql, conn)
+            cmd = New OleDbCommand(sql, conn) 'Then saved the player's location for the character. (auto-save rather than button)
             cmd.Connection = conn
             cmd.ExecuteNonQuery()
             conn.Close()
@@ -113,8 +115,6 @@ Public Class Map
             Next
             tbWorldMap.Rows.Add(r)
         Next
-
-
     End Sub
 
     Private Sub SetButtonArrows()
@@ -139,6 +139,7 @@ Public Class Map
         If (cvalue > 0) Then cvalue = cvalue - 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
     Protected Sub btnUp_Click(sender As Object, e As EventArgs) Handles btnUp.Click
         Dim rvalue, cvalue As Integer
@@ -147,6 +148,7 @@ Public Class Map
         If (rvalue > 0) Then rvalue = rvalue - 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
 
     Protected Sub btnUpRight_Click(sender As Object, e As EventArgs) Handles btnUpRight.Click
@@ -157,6 +159,7 @@ Public Class Map
         If (cvalue < 9) Then cvalue = cvalue + 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
 
     Protected Sub btnLeft_Click(sender As Object, e As EventArgs) Handles btnLeft.Click
@@ -166,6 +169,7 @@ Public Class Map
         If (cvalue > 0) Then cvalue = cvalue - 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
 
     Protected Sub btnRight_Click(sender As Object, e As EventArgs) Handles btnRight.Click
@@ -175,6 +179,7 @@ Public Class Map
         If (cvalue < 9) Then cvalue = cvalue + 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
 
     Protected Sub btnDownLeft_Click(sender As Object, e As EventArgs) Handles btnDownLeft.Click
@@ -185,6 +190,7 @@ Public Class Map
         If (cvalue > 0) Then cvalue = cvalue - 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
 
     Protected Sub btnDown_Click(sender As Object, e As EventArgs) Handles btnDown.Click
@@ -194,6 +200,7 @@ Public Class Map
         If (rvalue < 9) Then rvalue = rvalue + 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
 
     Protected Sub btnDownRight_Click(sender As Object, e As EventArgs) Handles btnDownRight.Click
@@ -204,6 +211,7 @@ Public Class Map
         If (cvalue < 9) Then cvalue = cvalue + 1
         Session("rows") = rvalue
         Session("cols") = cvalue
+        UpdateMap()
     End Sub
 #End Region
 
