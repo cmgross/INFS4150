@@ -11,34 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class _Default
-
-    '''<summary>
-    '''lblCharacters control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCharacters As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''ddlUsers control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlUsers As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''sdsUsers control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents sdsUsers As Global.System.Web.UI.WebControls.SqlDataSource
+Partial Public Class Success
 
     '''<summary>
     '''lName control.
@@ -48,6 +21,24 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lName As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''lRow control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lRow As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''lCol control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lCol As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''lHp control.
@@ -77,15 +68,6 @@ Partial Public Class _Default
     Protected WithEvents lGold As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''btnSelectCharacter control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSelectCharacter As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''imgIcon control.
     '''</summary>
     '''<remarks>
@@ -93,4 +75,13 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents imgIcon As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
+    '''btnEnterGame control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEnterGame As Global.System.Web.UI.WebControls.Button
 End Class

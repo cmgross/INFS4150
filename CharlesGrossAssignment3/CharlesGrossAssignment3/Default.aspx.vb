@@ -1,31 +1,21 @@
 ﻿Imports System.Data
+Imports CharlesGrossAssignment3.CharlesGrossAssignment3
 
 Public Class _Default
     Inherits Page
-
-    Public Class GameUser
-        Public Property Id As Integer
-        Public Property Name As String
-        Public Property Rloc As Integer
-        Public Property Cloc As Integer
-        Public Property Gold As Integer
-        Public Property Health As Integer
-        Public Property Exp As Integer
-        Public Property Icon As String
-    End Class
-
     Private _selectedUser As GameUser
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-        'TODO switch to SelectedIndexChange method
         If Not IsPostBack Then ddlUsers.DataBind()
         _selectedUser = GetSelectedUser()
+        lName.Text = _selectedUser.Name
+        lHp.Text = _selectedUser.Health
         lGold.Text = _selectedUser.Gold
         lExp.Text = _selectedUser.Exp
-        imgIcon.ImageUrl = "Images/" + _selectedUser.Icon 'TODO find icons for characters as same size, and put in db and images folder
+        imgIcon.ImageUrl = "Images/" + _selectedUser.Icon
     End Sub
 
-    Private Function GetSelectedUser() As GameUser 'TODO refactor this ugh
+    Private Function GetSelectedUser() As GameUser
         Dim uid As String = "ID =" & ddlUsers.SelectedValue
         Dim userTable As DataView = CType(sdsUsers.Select(DataSourceSelectArguments.Empty), DataView)
         userTable.RowFilter = uid
@@ -43,7 +33,7 @@ Public Class _Default
     End Function
 
     Protected Sub btnSelectCharacter_Click(sender As Object, e As EventArgs) Handles btnSelectCharacter.Click
-        'TODO Load control into session variables
-        'TODO Use bootswatch - superhero
+        GameUser.SaveCharacterToSession(_selectedUser) 'this method takes the selected user and saves it into session.
+        Response.Redirect("Success.aspx", False)
     End Sub
 End Class

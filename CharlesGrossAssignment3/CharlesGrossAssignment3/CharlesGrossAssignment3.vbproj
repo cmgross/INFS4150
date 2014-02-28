@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\game.accdb" />
+    <None Include="Content\bootstrap.old" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -170,6 +171,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Success.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -181,6 +183,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\GameUser.vb" />
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="Default.aspx.vb">
@@ -218,6 +221,13 @@
     <Compile Include="Site.Master.vb">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Success.aspx.designer.vb">
+      <DependentUpon>Success.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Success.aspx.vb">
+      <DependentUpon>Success.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.vb">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

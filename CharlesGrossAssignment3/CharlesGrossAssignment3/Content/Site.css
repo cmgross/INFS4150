@@ -27,3 +27,7 @@ textarea {
         padding: 0;
     }
 }
+
+.rowHeader {
+    font-weight: bold;
+}
