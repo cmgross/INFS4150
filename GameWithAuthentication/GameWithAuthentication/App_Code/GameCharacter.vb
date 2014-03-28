@@ -16,7 +16,7 @@ Namespace GameWithAuthentication
         End Sub
 
         Public Sub New(ByVal characterId As String)
-            Dim query As String = "SELECT * FROM userchar WHERE ID = " + characterId + ";"
+            Dim query As String = "SELECT * FROM [userchar] WHERE ID = " + characterId + ";"
             Using conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
                 conn.Open()
                 Dim cmd As OleDbCommand = New OleDbCommand(query, conn)
@@ -32,6 +32,22 @@ Namespace GameWithAuthentication
                     Icon = reader.Item("icon")
                 End While
                 reader.Close()
+            End Using
+        End Sub
+
+        Public Sub Save(ByVal user As String)
+            Using conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
+                Dim sql As String
+                If (Id = 0) Then 'new character: insert
+                    sql = "INSERT INTO userchar (CName,rloc,cloc,gold,exp,health,icon,[user]) VALUES ('" + Name + "',0,0,0,0,5,'" + Icon + "','" + user + "');"
+                Else 'existing character: update, only updates Name and Icon for now
+                    sql = "UPDATE userchar SET CName = '" + Name + "', icon = '" + Icon + "' WHERE ID = " + Id.ToString() + ";"
+                End If
+                conn.Open()
+                Dim cmd = New OleDbCommand(sql, conn)
+                cmd.Connection = conn
+                cmd.ExecuteNonQuery()
+                conn.Close()
             End Using
         End Sub
 

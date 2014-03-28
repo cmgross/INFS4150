@@ -9,7 +9,6 @@
         <div class="col-md-8">
             <section id="loginForm">
                 <div class="form-horizontal">
-<%--                    <h4>Use a local account to log in.</h4>--%>
                     <h5>Accounts are: charles/charles, peterd/peterd, bigmike/bigmike</h5>
                     <hr />
                     <asp:PlaceHolder runat="server" ID="ErrorMessage" Visible="false">
