@@ -5,6 +5,9 @@
         <fieldset>
             <legend>Please select your character</legend>
             <div class="form-group">
+                 <div class="alert alert-danger" runat="server" Visible="False" id="dNoCharacters">
+                        You do not have any characters. Please create one to play!
+                    </div>
                 <asp:Label ID="lblCharacters" runat="server" Text="Characters"></asp:Label><br />
                 <asp:DropDownList ID="ddlCharacters" runat="server" DataSourceID="sdsCharacters" DataTextField="CName" DataValueField="ID" AutoPostBack="True">
                 </asp:DropDownList>
@@ -40,9 +43,10 @@
                     </table>
                     <div class="form-group">
                         <asp:Button ID="btnSelectCharacter" runat="server" Text="Select Character" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnEditCharacter" runat="server" Text="Edit Character" CssClass="btn btn-info" />
+                        <asp:Button ID="btnNewCharacter" runat="server" Text="New Character" CssClass="btn btn-success" PostBackUrl="~/Game/Character.aspx" />
                     </div>
                 </div>
-
                 <div class="col-md-6">
                     <asp:Image ID="imgIcon" runat="server" />
                 </div>

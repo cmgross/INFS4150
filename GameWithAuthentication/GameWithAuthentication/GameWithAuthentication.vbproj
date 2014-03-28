@@ -185,6 +185,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Game\Character.aspx" />
     <Content Include="Game\Default.aspx" />
     <Content Include="Game\Success.aspx" />
     <Content Include="Images\aragorn.jpg" />
@@ -291,6 +292,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game\Character.aspx.designer.vb">
+      <DependentUpon>Character.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game\Character.aspx.vb">
+      <DependentUpon>Character.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Game\Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>

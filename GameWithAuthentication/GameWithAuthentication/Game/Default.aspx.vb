@@ -8,38 +8,60 @@ Namespace Game
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
             If Not IsPostBack Then ddlCharacters.DataBind()
-            _selectedUser = GetSelectedUser()
+            If IsPostBack Then Return
+            If (ddlCharacters.SelectedValue = "") Then
+                btnSelectCharacter.Visible = False
+                btnEditCharacter.Visible = False
+                dNoCharacters.Visible = True
+            Else
+                btnSelectCharacter.Visible = True
+                btnEditCharacter.Visible = True
+                dNoCharacters.Visible = False
+                CharacterSelected()
+            End If
+        End Sub
+
+        Private Sub CharacterSelected()
+            _selectedUser = New GameCharacter(ddlCharacters.SelectedValue)
             lName.Text = _selectedUser.Name
             lHp.Text = _selectedUser.Health
             lGold.Text = _selectedUser.Gold
             lExp.Text = _selectedUser.Exp
             imgIcon.ImageUrl = "~/Images/" + _selectedUser.Icon
+            GameCharacter.SaveCharacterToSession(_selectedUser)
         End Sub
-
-        Protected Sub SqlDataSource1_Selecting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.SqlDataSourceSelectingEventArgs) Handles sdsCharacters.Selecting
+        Protected Sub SqlDataSource1_Selecting(ByVal sender As Object, ByVal e As SqlDataSourceSelectingEventArgs) Handles sdsCharacters.Selecting
             e.Command.Parameters("uname").Value = Page.User.Identity.Name
         End Sub
 
         Private Function GetSelectedUser() As GameCharacter
-            Dim uid As String = "ID =" & ddlCharacters.SelectedValue
-            Dim characterTable As DataView = CType(sdsCharacters.Select(DataSourceSelectArguments.Empty), DataView)
-            characterTable.RowFilter = uid
-            Dim userCharacter As DataRowView = CType(characterTable(0), DataRowView)
-            Dim gameCharacter As New GameCharacter
-            gameCharacter.Id = userCharacter("ID")
-            gameCharacter.Name = userCharacter("CName")
-            gameCharacter.Rloc = userCharacter("rloc")
-            gameCharacter.Cloc = userCharacter("cloc")
-            gameCharacter.Gold = userCharacter("gold")
-            gameCharacter.Exp = userCharacter("exp")
-            gameCharacter.Health = userCharacter("health")
-            gameCharacter.Icon = userCharacter("icon")
-            Return gameCharacter
+            'Dim uid As String = "ID =" & ddlCharacters.SelectedValue
+            'Dim characterTable As DataView = CType(sdsCharacters.Select(DataSourceSelectArguments.Empty), DataView)
+            'characterTable.RowFilter = uid
+            'Dim userCharacter As DataRowView = CType(characterTable(0), DataRowView)
+            'Dim gameCharacter As New GameCharacter
+            'gameCharacter.Id = userCharacter("ID")
+            'gameCharacter.Name = userCharacter("CName")
+            'gameCharacter.Rloc = userCharacter("rloc")
+            'gameCharacter.Cloc = userCharacter("cloc")
+            'gameCharacter.Gold = userCharacter("gold")
+            'gameCharacter.Exp = userCharacter("exp")
+            'gameCharacter.Health = userCharacter("health")
+            'gameCharacter.Icon = userCharacter("icon")
+            'Return GameCharacter
         End Function
 
+        Protected Sub btnEditCharacter_Click(sender As Object, e As EventArgs) Handles btnEditCharacter.Click
+            Dim characterId As String = ddlCharacters.SelectedValue
+            Response.Redirect("Character.aspx?characterId=" + characterId, False)
+        End Sub
+
         Protected Sub btnSelectCharacter_Click(sender As Object, e As EventArgs) Handles btnSelectCharacter.Click
-            GameCharacter.SaveCharacterToSession(_selectedUser) 'this method takes the selected character and saves it into session.
             Response.Redirect("Success.aspx", False)
+        End Sub
+
+        Protected Sub ddlCharacters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCharacters.SelectedIndexChanged
+            CharacterSelected()
         End Sub
     End Class
 End Namespace

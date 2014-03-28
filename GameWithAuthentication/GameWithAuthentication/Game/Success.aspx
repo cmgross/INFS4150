@@ -42,5 +42,6 @@
 
     <div class="form-group">
         <asp:Button ID="btnEnterGame" runat="server" Text="Enter Game" CssClass="btn btn-success" Enabled="False" />
+        <asp:Button ID="btnSelect" runat="server" Text="Select another character" CssClass="btn btn-info" PostBackUrl="~/Default.aspx" />
     </div>
 </asp:Content>

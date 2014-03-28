@@ -9,6 +9,7 @@
 
 Option Strict On
 Option Explicit On
+
 Namespace Game
 
     Partial Public Class Success
@@ -84,5 +85,14 @@ Namespace Game
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents btnEnterGame As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''btnSelect control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnSelect As Global.System.Web.UI.WebControls.Button
     End Class
 End Namespace

@@ -15,6 +15,15 @@ Namespace Game
     Partial Public Class _Default
 
         '''<summary>
+        '''dNoCharacters control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents dNoCharacters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+        '''<summary>
         '''lblCharacters control.
         '''</summary>
         '''<remarks>
@@ -85,6 +94,24 @@ Namespace Game
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
         Protected WithEvents btnSelectCharacter As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''btnEditCharacter control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnEditCharacter As Global.System.Web.UI.WebControls.Button
+
+        '''<summary>
+        '''btnNewCharacter control.
+        '''</summary>
+        '''<remarks>
+        '''Auto-generated field.
+        '''To modify move field declaration from designer file to code-behind file.
+        '''</remarks>
+        Protected WithEvents btnNewCharacter As Global.System.Web.UI.WebControls.Button
 
         '''<summary>
         '''imgIcon control.
