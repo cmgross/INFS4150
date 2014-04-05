@@ -14,6 +14,51 @@ Option Explicit On
 Partial Public Class Map
 
     '''<summary>
+    '''lName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lName As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''lHp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lHp As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''lXp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lXp As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''lGold control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lGold As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''imgIcon control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents imgIcon As Global.System.Web.UI.WebControls.Image
+
+    '''<summary>
     '''tbGameMap control.
     '''</summary>
     '''<remarks>

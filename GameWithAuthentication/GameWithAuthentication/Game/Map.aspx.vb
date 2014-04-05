@@ -22,6 +22,7 @@ Public Class Map
         'Dim exampleTerrain = terrain(example - 1)
         'Dim exampleTerrainColor = terrainColor(example - 1)
         _selectedCharacter = GameCharacter.GetCharacterFromSession()
+        UpdateCharacterInfo()
 
         Dim conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
         Dim cmd As OleDbCommand
@@ -133,7 +134,14 @@ Public Class Map
         btnDown.Text = Server.HtmlDecode("&#8595;")
         btnDownRight.Text = Server.HtmlDecode("&#8600;")
     End Sub
-
+    Private Sub UpdateCharacterInfo()
+        _selectedCharacter = GameCharacter.GetCharacterFromSession()
+        lName.Text = _selectedCharacter.CharacterName
+        imgIcon.ImageUrl = "~/Images/" + _selectedCharacter.Icon
+        lHp.Text = _selectedCharacter.Hp
+        lGold.Text = _selectedCharacter.Gold
+        lXp.Text = _selectedCharacter.Xp
+    End Sub
 #Region "MovementButtons"
     Protected Sub btnUpLeft_Click(sender As Object, e As EventArgs) Handles btnUpLeft.Click
         Dim rvalue, cvalue As Integer
