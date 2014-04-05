@@ -9,7 +9,7 @@
                         You do not have any characters. Please create one to play!
                     </div>
                 <asp:Label ID="lblCharacters" runat="server" Text="Characters"></asp:Label><br />
-                <asp:DropDownList ID="ddlCharacters" runat="server" DataSourceID="sdsCharacters" DataTextField="CName" DataValueField="ID" AutoPostBack="True">
+                <asp:DropDownList ID="ddlCharacters" runat="server" DataSourceID="sdsCharacters" DataTextField="CharacterName" DataValueField="Id" AutoPostBack="True">
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="sdsCharacters" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [Character] WHERE [UserName] = @uname">
                     <SelectParameters>

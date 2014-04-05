@@ -34,7 +34,7 @@
                         <tr>
                             <td class="rowHeader">Icon:</td>
                             <td>
-                                <asp:DropDownList ID="ddlImages" runat="server" DataSourceID="sdsImages" DataTextField="icon" DataValueField="ID" AutoPostBack="True">
+                                <asp:DropDownList ID="ddlImages" runat="server" DataSourceID="sdsImages" DataTextField="IconName" DataValueField="Id" AutoPostBack="True">
                                 </asp:DropDownList>
                                 <asp:SqlDataSource ID="sdsImages" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [Icon]">
                                 </asp:SqlDataSource>

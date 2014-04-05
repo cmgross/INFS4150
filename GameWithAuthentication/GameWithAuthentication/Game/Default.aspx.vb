@@ -22,10 +22,10 @@ Namespace Game
 
         Private Sub CharacterSelected()
             _selectedUser = New GameCharacter(ddlCharacters.SelectedValue)
-            lName.Text = _selectedUser.Name
-            lHp.Text = _selectedUser.Health
+            lName.Text = _selectedUser.CharacterName
+            lHp.Text = _selectedUser.Hp
             lGold.Text = _selectedUser.Gold
-            lExp.Text = _selectedUser.Exp
+            lExp.Text = _selectedUser.Xp
             imgIcon.ImageUrl = "~/Images/" + _selectedUser.Icon
             GameCharacter.SaveCharacterToSession(_selectedUser)
         End Sub

@@ -47,6 +47,24 @@ Namespace GameWithAuthentication
                 Dim cmd = New OleDbCommand(sql, conn)
                 cmd.Connection = conn
                 cmd.ExecuteNonQuery()
+
+                'Get the most recently inserted CharacterId, then populate the CharacterMap with the starting location as Visible
+                'also set the instance Id equal to what is returned
+                If (Id = 0) Then
+                    cmd.CommandText = "SELECT @@IDENTITY"
+                    Dim newId As Integer = cmd.ExecuteScalar()
+                    Id = newId
+                    For i As Integer = 1 To 100 'INSERT INTO [CharacterMap] ([CharacterId], [MapId], [Visited]) VALUES (Id, i, 0)
+                        Dim visited As Boolean
+                        If (i = 0) Then
+                            visited = True
+                        Else
+                            visited = False
+                        End If
+                        cmd.CommandText = "INSERT INTO [CharacterMap] ([CharacterId], [MapId], [Visited]) VALUES (" + Id.ToString() + "," + i.ToString() + "," + visited + ")"
+                        cmd.ExecuteNonQuery()
+                    Next
+                End If
                 conn.Close()
             End Using
         End Sub

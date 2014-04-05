@@ -18,9 +18,9 @@ Public Class Character
         Else 'this an existing character to edit, they should also be in session
             lPageAction.Text = "Edit your character"
             _selectedUser = GameCharacter.GetCharacterFromSession()
-            txtName.Text = _selectedUser.Name
-            lHp.Text = _selectedUser.Health
-            lExp.Text = _selectedUser.Exp
+            txtName.Text = _selectedUser.CharacterName
+            lHp.Text = _selectedUser.Hp
+            lExp.Text = _selectedUser.Xp
             lGold.Text = _selectedUser.Gold
             imgIcon.ImageUrl = "~/Images/" + _selectedUser.Icon
             ddlImages.SelectedItem.Text = _selectedUser.Icon
@@ -34,13 +34,13 @@ Public Class Character
         Else
             _selectedUser = GameCharacter.GetCharacterFromSession()
         End If
-        _selectedUser.Name = txtName.Text
-        _selectedUser.Health = lHp.Text
-        _selectedUser.Exp = lExp.Text
+        _selectedUser.CharacterName = txtName.Text
+        _selectedUser.Hp = lHp.Text
+        _selectedUser.Xp = lExp.Text
         _selectedUser.Gold = lGold.Text
         _selectedUser.Icon = ddlImages.SelectedItem.Text
-        GameCharacter.SaveCharacterToSession(_selectedUser)
         _selectedUser.Save(Page.User.Identity.Name)
+        GameCharacter.SaveCharacterToSession(_selectedUser)
         Response.Redirect("Default.aspx", False)
     End Sub
 
