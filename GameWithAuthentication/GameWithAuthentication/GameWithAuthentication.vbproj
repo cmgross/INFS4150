@@ -187,6 +187,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Game\Character.aspx" />
     <Content Include="Game\Default.aspx" />
+    <Content Include="Game\Map.aspx" />
     <Content Include="Game\Success.aspx" />
     <Content Include="Images\aragorn.jpg" />
     <Content Include="Images\frodo.jpg" />
@@ -236,6 +237,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="DeveloperNotes.txt" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -283,7 +285,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="App_Code\GameCharacter.vb" />
-    <Compile Include="App_Code\GameMap.vb" />
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="App_Start\Startup.Auth.vb" />
@@ -307,6 +308,13 @@
     <Compile Include="Game\Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Game\Map.aspx.designer.vb">
+      <DependentUpon>Map.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game\Map.aspx.vb">
+      <DependentUpon>Map.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Game\Success.aspx.designer.vb">
       <DependentUpon>Success.aspx</DependentUpon>

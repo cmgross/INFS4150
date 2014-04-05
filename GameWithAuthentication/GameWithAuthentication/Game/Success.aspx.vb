@@ -25,7 +25,6 @@ Namespace Game
 
             Dim terrainDisplay(9) As String 'We do not allow more than 9 terrain types
             Dim terrainColor(9) As String 'We do not allow more than 9 terrain colors
-
             Using conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
                 conn.Open()
                 'populate terrain array and put into session
@@ -44,7 +43,10 @@ Namespace Game
                 For j = 0 To 9
                     For i = 0 To 9
                         reader.Read()
-                        Session("map" & j & i) = reader.Item("Terrain") 'This stores the TerrainID for a given row and location
+                        Dim terrainAndMapIds(1) As Integer 'store ID of terrain and map ID for given row/column
+                        terrainAndMapIds(0) = reader.Item("Terrain") 'This stores the TerrainID for a given row and location
+                        terrainAndMapIds(1) = reader.Item("Id") 'This is the map we are on
+                        Session("map" & j & i) = terrainAndMapIds
                     Next
                 Next
                 reader.Close()
