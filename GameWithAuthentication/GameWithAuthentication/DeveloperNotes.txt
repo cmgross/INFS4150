@@ -1,0 +1,10 @@
+﻿Current session objects:
++		Session("terrainColor")	{String()}	this is an array of terrain tile colors like Green, Grey, etc
++		Session("terrainDisplay")	{String()}	this is an array of terrain text like Dirt, Grass, etc
++		Session("CurrentRow")	0 {Integer}	Current Row, also in GameCharacter in Session
++		Session("CurrentColumn")	0 Current Column, also in GameCharacter in Session
++		Session("map00")	1 {Integer}	This stores the TerrainID for a given row and location
+through
++		Session("map99")	8 {Integer}	This stores the TerrainID for a given row and location
+
+

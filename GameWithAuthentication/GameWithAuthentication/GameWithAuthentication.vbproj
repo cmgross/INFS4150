@@ -283,6 +283,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="App_Code\GameCharacter.vb" />
+    <Compile Include="App_Code\GameMap.vb" />
     <Compile Include="App_Start\BundleConfig.vb" />
     <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="App_Start\Startup.Auth.vb" />
