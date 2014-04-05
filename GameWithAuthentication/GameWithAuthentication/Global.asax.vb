@@ -7,9 +7,5 @@ Public Class Global_asax
         ' Fires when the application is started
         RouteConfig.RegisterRoutes(RouteTable.Routes)
         BundleConfig.RegisterBundles(BundleTable.Bundles)
-
-        'TODO Add user to access table
-        'TODO customize login page
-        'TODO two accounts, charles/charles, peterd/peterd
     End Sub
 End Class

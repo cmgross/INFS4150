@@ -3,12 +3,12 @@
 Namespace GameWithAuthentication
     Public Class GameCharacter
         Public Property Id As Integer
-        Public Property Name As String
-        Public Property Rloc As Integer
-        Public Property Cloc As Integer
+        Public Property CharacterName As String
+        Public Property Row As Integer
+        Public Property Column As Integer
         Public Property Gold As Integer
-        Public Property Health As Integer
-        Public Property Exp As Integer
+        Public Property Hp As Integer
+        Public Property Xp As Integer
         Public Property Icon As String
 
         Public Sub New()
@@ -16,32 +16,32 @@ Namespace GameWithAuthentication
         End Sub
 
         Public Sub New(ByVal characterId As String)
-            Dim query As String = "SELECT * FROM [userchar] WHERE ID = " + characterId + ";"
+            Dim query As String = "SELECT * FROM [Character] WHERE Id = " + characterId + ";"
             Using conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
                 conn.Open()
                 Dim cmd As OleDbCommand = New OleDbCommand(query, conn)
                 Dim reader As OleDbDataReader = cmd.ExecuteReader()
                 While reader.Read()
                     Id = characterId
-                    Name = reader.Item("CName")
-                    Rloc = reader.Item("rloc")
-                    Cloc = reader.Item("cloc")
-                    Gold = reader.Item("gold")
-                    Exp = reader.Item("exp")
-                    Health = reader.Item("health")
-                    Icon = reader.Item("icon")
+                    CharacterName = reader.Item("CharacterName")
+                    Row = reader.Item("Row")
+                    Column = reader.Item("Column")
+                    Gold = reader.Item("Gold")
+                    Xp = reader.Item("Xp")
+                    Hp = reader.Item("Hp")
+                    Icon = reader.Item("Icon")
                 End While
                 reader.Close()
             End Using
         End Sub
 
-        Public Sub Save(ByVal user As String)
+        Public Sub Save(ByVal userName As String)
             Using conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
                 Dim sql As String
                 If (Id = 0) Then 'new character: insert
-                    sql = "INSERT INTO userchar (CName,rloc,cloc,gold,exp,health,icon,[user]) VALUES ('" + Name + "',0,0,0,0,5,'" + Icon + "','" + user + "');"
+                    sql = "INSERT INTO [Character] ([CharacterName],[Row],[Column],[Gold],[Xp],[Hp],[Icon],[UserName]) VALUES ('" + CharacterName + "',0,0,0,0,5,'" + Icon + "','" + userName + "');"
                 Else 'existing character: update, only updates Name and Icon for now
-                    sql = "UPDATE userchar SET CName = '" + Name + "', icon = '" + Icon + "' WHERE ID = " + Id.ToString() + ";"
+                    sql = "UPDATE [Character] SET [CharacterName] = '" + CharacterName + "', [Icon] = '" + Icon + "' WHERE Id = " + Id.ToString() + ";"
                 End If
                 conn.Open()
                 Dim cmd = New OleDbCommand(sql, conn)

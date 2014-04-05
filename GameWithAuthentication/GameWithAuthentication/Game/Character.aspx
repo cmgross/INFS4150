@@ -36,7 +36,7 @@
                             <td>
                                 <asp:DropDownList ID="ddlImages" runat="server" DataSourceID="sdsImages" DataTextField="icon" DataValueField="ID" AutoPostBack="True">
                                 </asp:DropDownList>
-                                <asp:SqlDataSource ID="sdsImages" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [icon]">
+                                <asp:SqlDataSource ID="sdsImages" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" ProviderName="<%$ ConnectionStrings:ConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [Icon]">
                                 </asp:SqlDataSource>
                             </td>
                             <td>
