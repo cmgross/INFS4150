@@ -56,12 +56,13 @@ Namespace GameWithAuthentication
                     Id = newId
                     For i As Integer = 1 To 100 'INSERT INTO [CharacterMap] ([CharacterId], [MapId], [Visited]) VALUES (Id, i, 0)
                         Dim visited As Boolean
-                        If (i = 0) Then
+                        If (i = 1) Then
                             visited = True
                         Else
                             visited = False
                         End If
-                        cmd.CommandText = "INSERT INTO [CharacterMap] ([CharacterId], [MapId], [Visited]) VALUES (" + Id.ToString() + "," + i.ToString() + "," + visited + ")"
+                        sql = "INSERT INTO [CharacterMap] ([CharacterId], [MapId], [Visited]) VALUES (" + Id.ToString() + "," + i.ToString() + "," + visited.ToString() + ")"
+                        cmd.CommandText = sql
                         cmd.ExecuteNonQuery()
                     Next
                 End If
