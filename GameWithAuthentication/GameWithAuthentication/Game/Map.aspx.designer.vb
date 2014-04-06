@@ -59,6 +59,42 @@ Partial Public Class Map
     Protected WithEvents imgIcon As Global.System.Web.UI.WebControls.Image
 
     '''<summary>
+    '''lInventoryCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lInventoryCount As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''ddlInventory control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlInventory As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''btnDrop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnDrop As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''sdsInventory control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents sdsInventory As Global.System.Web.UI.WebControls.SqlDataSource
+
+    '''<summary>
     '''tbGameMap control.
     '''</summary>
     '''<remarks>
@@ -147,6 +183,51 @@ Partial Public Class Map
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblInfo As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''dItemsFound control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dItemsFound As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''lCantPickUp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lCantPickUp As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''ddlMapItems control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlMapItems As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''btnPickUp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPickUp As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''sdsMapItems control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents sdsMapItems As Global.System.Web.UI.WebControls.SqlDataSource
 
     '''<summary>
     '''tbWorldMap control.

@@ -7,6 +7,7 @@ Public Class Map
     Inherits System.Web.UI.Page
     Dim _map(9, 9) As Integer
     Dim _bigmap(9, 9, 1) As Integer
+    Private Const MaxInventoryItems As Integer = 5
     Private _selectedCharacter As GameCharacter
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -59,6 +60,56 @@ Public Class Map
                     _bigmap(j, i, 1) = Convert.ToInt32(read.Item("Visited")) 'by default, true as int is -1 in VB, Int32 makes it 1
                 Next
             Next
+
+            'currentMapId- Get map items for that Id then see how many items character has in inventory and disallow picking up if greater than max
+            Dim mapItems As Integer
+            sql = "SELECT COUNT(*) FROM [MapItem] WHERE [MapId] = " & currentMapId & ";"
+            cmd = New OleDbCommand(sql, conn)
+            read = cmd.ExecuteReader()
+            While read.Read()
+                mapItems = read(0)
+            End While
+
+            Dim characterItems As Integer
+            sql = "SELECT COUNT(*) FROM [CharacterItem] WHERE [CharacterId] = " & _selectedCharacter.Id.ToString() & ";"
+            cmd = New OleDbCommand(sql, conn)
+            read = cmd.ExecuteReader()
+            While read.Read()
+                characterItems = read(0)
+            End While
+
+            'TODO populate character inventory
+            'TODO drop item from character inventory
+
+            If (mapItems > 0) Then
+                sdsMapItems.SelectCommand = "SELECT [MapItem].[Id], [Item].[Description] FROM [MapItem] INNER JOIN [Item] ON [MapItem].[ItemId] = [Item].[Id] WHERE [MapId] = " & currentMapId & ";"
+                dItemsFound.Visible = True
+                'if character has >= max items, show/enable btnPickUp, else show warning lCantPickUp
+                If (characterItems >= MaxInventoryItems) Then
+                    lCantPickUp.Visible = True
+                    btnPickUp.Visible = False
+                Else
+                    lCantPickUp.Visible = False
+                    btnPickUp.Visible = True
+                End If
+            Else
+                dItemsFound.Visible = False
+            End If
+            ddlMapItems.DataBind()
+
+            If (characterItems > 0) Then
+                lInventoryCount.Text = characterItems.ToString() & "/" & MaxInventoryItems.ToString() & " Items"
+                ddlInventory.Visible = True
+                btnDrop.Visible = True
+                sdsInventory.SelectCommand = "SELECT [CharacterItem].[Id], [Item].[Description] FROM [CharacterItem] INNER JOIN [Item] ON [CharacterItem].[ItemId] = [Item].[Id] WHERE [CharacterId] = " & _selectedCharacter.Id.ToString() & ";"
+            Else
+                lInventoryCount.Text = "0/" & MaxInventoryItems.ToString() & " Items"
+                ddlInventory.Visible = False
+                btnDrop.Visible = False
+            End If
+            ddlInventory.DataBind()
+            'lvInventory.DataBind()
+
             read.Close()
             conn.Close()
         End Using
@@ -141,6 +192,78 @@ Public Class Map
         lHp.Text = _selectedCharacter.Hp
         lGold.Text = _selectedCharacter.Gold
         lXp.Text = _selectedCharacter.Xp
+    End Sub
+    Protected Sub btnDrop_Click(sender As Object, e As EventArgs) Handles btnDrop.Click
+        _selectedCharacter = GameCharacter.GetCharacterFromSession()
+        Dim currentCharacterItemId As String = ddlInventory.SelectedItem.Value.ToString()
+        Dim currentItemId As String
+        Dim currentMapId As String = Session("map" & Session("CurrentRow") & Session("CurrentColumn"))(1).ToString()
+        Dim conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
+        Dim cmd As OleDbCommand
+        Dim read As OleDbDataReader
+        Dim sql As String
+
+        Using conn
+            conn.Open()
+            'we need to query for the actual ItemId in order to insert into MapItem Table
+            sql = "SELECT [ItemId] FROM [CharacterItem] WHERE [Id] = " & currentCharacterItemId & ";"
+            cmd = New OleDbCommand(sql, conn)
+            read = cmd.ExecuteReader()
+            While read.Read()
+                currentItemId = read(0)
+            End While
+
+            'Insert this item into MapItem MapId, ItemId
+            sql = "INSERT INTO [MapItem] ([MapId], [ItemId]) VALUES (" & currentMapId & "," & currentItemId & ");"
+            cmd = New OleDbCommand(sql, conn)
+            cmd.Connection = conn
+            cmd.ExecuteNonQuery()
+
+            'Delete this item from the Character Inventory 
+            sql = "DELETE FROM [CharacterItem] WHERE [Id] = " & currentCharacterItemId & ";"
+            cmd = New OleDbCommand(sql, conn)
+            cmd.Connection = conn
+            cmd.ExecuteNonQuery()
+            conn.Close()
+        End Using
+        GameCharacter.SaveCharacterToSession(_selectedCharacter)
+        UpdateMap()
+    End Sub
+    Protected Sub btnPickup_Click(sender As Object, e As EventArgs) Handles btnPickUp.Click
+        'get value from ddlMapItems, delete this item from being in the MapItem table, and insert it into the characterItem table
+        _selectedCharacter = GameCharacter.GetCharacterFromSession()
+        Dim currentMapItemId As String = ddlMapItems.SelectedItem.Value.ToString()
+        Dim currentItemId As String
+        Dim conn As New OleDbConnection(ConfigurationManager.ConnectionStrings("ConnectionString").ConnectionString)
+        Dim cmd As OleDbCommand
+        Dim read As OleDbDataReader
+        Dim sql As String
+
+        Using conn
+            conn.Open()
+            'we need to query for the actual ItemId in order to insert into CharacterItem Table
+            sql = "SELECT [ItemId] FROM [MapItem] WHERE [Id] = " & currentMapItemId & ";"
+            cmd = New OleDbCommand(sql, conn)
+            read = cmd.ExecuteReader()
+            While read.Read()
+                currentItemId = read(0)
+            End While
+
+            'Insert this item into character's inventory CharacterId, ItemId
+            sql = "INSERT INTO [CharacterItem] ([CharacterId], [ItemId]) VALUES (" & _selectedCharacter.Id.ToString() & "," & currentItemId & ");"
+            cmd = New OleDbCommand(sql, conn)
+            cmd.Connection = conn
+            cmd.ExecuteNonQuery()
+
+            'Delete this item from the map inventory 
+            sql = "DELETE FROM [MapItem] WHERE [Id] = " & currentMapItemId & ";"
+            cmd = New OleDbCommand(sql, conn)
+            cmd.Connection = conn
+            cmd.ExecuteNonQuery()
+            conn.Close()
+        End Using
+        GameCharacter.SaveCharacterToSession(_selectedCharacter)
+        UpdateMap()
     End Sub
 #Region "MovementButtons"
     Protected Sub btnUpLeft_Click(sender As Object, e As EventArgs) Handles btnUpLeft.Click
